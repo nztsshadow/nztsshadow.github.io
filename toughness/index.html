@@ -1,0 +1,153 @@
+<!-- Toughness Calculator v1.0 by Shadow (Adapted from Nizari's Excel Toughness Calc) -->
+<head>
+    <script src="txtlib.js"></script>
+    <script src="main.js"></script>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+    <div id="upload">
+        <span class="il_title">Please upload the appropriate requested files below.</span><br><br>
+        <span class="ctext">MonLvl.txt&nbsp;:&nbsp;</span><input type="file" id="monlvlf" accept=".txt " placeholder="MonLvl.txt"/><br>
+        <span class="ctext">MonStats.txt&nbsp;:&nbsp;</span><input type="file" id="monstatsf" accept=".txt " placeholder="MonStats.txt"/>
+    </div>
+    <div id="calc" style="display: none">
+        <span class="il_title">Calculator Editables</span><br><br>
+        <table id="editCalc">
+            <tr>
+                <th>HP</th>
+                <th>Defense</th>
+                <th>Block</th>
+                <th>A1 | A2 | S1 To Hit</th>
+                <th>Critical</th>
+                <th>Regen</th>
+            </tr>
+            <tr>
+                <td><input id="minhp" type="value" placeholder="0" value="0" />~<input id="maxhp" type="value" placeholder="0" value="0" />×<input id="monhp" type="value" placeholder="0" value="0" /></td>
+                <td><input id="monsdef" type="value" placeholder="0" value="0" />×<input id="monldef" type="value" placeholder="0" value="0" /></td>
+                <td><input id="monblock" type="value" placeholder="0" value="0" /></td>
+                <td><input id="mona1ar" type="value" placeholder="0" value="0" />/<input id="mona2ar" type="value" placeholder="0" value="0" />/<input id="mons1ar" type="value" placeholder="0" value="0" />×<input id="monlar" type="value" placeholder="0" value="0" /></td>
+                <td><input id="moncrit" type="value" placeholder="0" value="0" /></td>
+                <td><input id="monregen" type="value" placeholder="0" value="0" /></td>
+            </tr>
+            <tr>
+                <th>Physical</th>
+                <th>Magic</th>
+                <th>Fire</th>
+                <th>Lightning</th>
+                <th>Cold</th>
+                <th>Poison</th>
+            </tr>
+            <tr>
+                <td><input id="physr" type="value" placeholder="0" value="0" /></td>
+                <td><input id="magir" type="value" placeholder="0" value="0" /></td>
+                <td><input id="firer" type="value" placeholder="0" value="0" /></td>
+                <td><input id="liter" type="value" placeholder="0" value="0" /></td>
+                <td><input id="coldr" type="value" placeholder="0" value="0" /></td>
+                <td><input id="poisr" type="value" placeholder="0" value="0" /></td>
+            </tr>
+            <tr>
+                <th>A1 Damage</th>
+                <th>A2 Damage</th>
+                <th>S1 Damage</th>
+                <th>Damage Multiplier</th>
+            </tr>
+            <tr>
+                <td><input id="mona1mindmg" type="value" placeholder="0" value="0" /> ~ <input id="mona1maxdmg" type="value" placeholder="0" value="0" /></td>
+                <td><input id="mona2mindmg" type="value" placeholder="0" value="0" /> ~ <input id="mona2maxdmg" type="value" placeholder="0" value="0" /></td>
+                <td><input id="mons1mindmg" type="value" placeholder="0" value="0" /> ~ <input id="mons1maxdmg" type="value" placeholder="0" value="0" /></td>
+                <td>A1 / A2 / S1&nbsp;&nbsp;&nbsp; × <input id="mondmg" type="value" placeholder="0" value="0" /></td>
+            </tr>
+        </table><br><br>
+        <table id="ctrlCalc">
+            <tr>
+                <th>Monster Info</th>
+                <th>Player Info</th>
+            </tr>
+            <tr>
+                <td>
+                    <span class="ctext">Monster&nbsp;:&nbsp;</span>
+
+                    <select id="mon">
+                    </select>
+                    
+                    <br>
+                    
+                    <span class="ctext">Level&nbsp;:&nbsp;</span>
+        
+                    <select id="mlvl">
+                    </select>
+                    
+                    <br>
+                    
+                    <span class="ctext">Difficulty&nbsp;:&nbsp;</span>
+
+                    <select id="diff">
+                        <option value="0">Normal</option>
+                        <option value="1">Nightmare</option>
+                        <option value="2">Hell</option>
+                    </select>
+                    
+                </td>
+                <td>
+                
+                    <span class="ctext">Attack Rating&nbsp;:&nbsp;</span>
+                    <input id="par" type="value" placeholder="10000" value="10000"/>
+
+                    <br>
+                    
+                    <span class="ctext">Defense&nbsp;:&nbsp;</span>
+                    <input id="pdef" type="value" placeholder="10000" value="10000"/>
+                    
+                    <br>
+
+                    <span class="ctext">Level&nbsp;:&nbsp;</span>
+                    <input id="plvl" type="value" placeholder="1" value="1" min="1" max="127"/>
+                    
+                </td>
+            </tr>
+        </table>
+        
+        <br>
+        
+        <hr class="divider">
+        
+        <span class="il_title">Calculations</span><br><br>
+        
+        <span class="btext">Chance to hit monster: </span><span id="defc">5</span><span class="btext">%</span><br>
+        <span class="btext">Chance to be hit by monster [A1 | A2 | S1]: </span><span id="pdefc">5</span><span class="btext"></span><br>
+        
+        <br><br>
+        <table id="readCalcs">
+            <tr>
+                <th>HP</th>
+                <th>Regen</th>
+                <th>A1 Damage</th>
+                <th>A2 Damage</th>
+                <th>S1 Damage</th>
+            </tr>
+            <tr>
+                <td><span id="minhpo">0</span> ~ <span id="maxhpo">0</span></td>
+                <td><span id="monregeno">0 ~ 0</span></td>
+                <td><span id="mona1dmgo">0 ~ 0</span></td>
+                <td><span id="mona2dmgo">0 ~ 0</span></td>
+                <td><span id="mons1dmgo">0 ~ 0</span></td>
+            </tr>
+            <tr>
+                <th>Physical</th>
+                <th>Magic</th>
+                <th>Fire</th>
+                <th>Lightning</th>
+                <th>Cold</th>
+                <th>Poison</th>
+            </tr>
+            <tr>
+                <td id="physro">0</td>
+                <td id="magiro">0</td>
+                <td id="firero">0</td>
+                <td id="litero">0</td>
+                <td id="coldro">0</td>
+                <td id="poisro">0</td>
+            </tr>
+        </table><br>
+    </div>
+</body>
