@@ -1,5 +1,5 @@
 body{
-    background: url(GFX/backgroundt.jpg) no-repeat bottom center / 100% fixed;
+    background: url(GFX/backgroundt.jpg) no-repeat bottom center / cover fixed;
     padding: 24px;
 }
 
