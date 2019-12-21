@@ -1,0 +1,17 @@
+<head>
+<script>
+window.onload = init;
+
+function doLinks(e){
+    console.log(e.target);
+}
+
+function init(){
+    document.querySelector("textarea#input").addEventListener("onkeyup", doLinks, false);
+}
+</script>
+</head>
+<body>
+<textarea id="input"></textarea><br>
+<textarea id="output"></textarea>
+</body>
