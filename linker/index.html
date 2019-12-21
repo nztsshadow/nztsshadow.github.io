@@ -1,4 +1,22 @@
 <head>
+<style>
+    body{
+        margin: 0;
+        background: #666;
+        color: #EEE;
+    }
+    textarea#input{
+        resize: none;
+        border: none;
+        outline: none;
+        width: 100%;
+        height: 30%;
+    }
+    div#output{
+        width: 100%;
+        height: 70%;
+    }
+</style>
 <script>
 window.onload = init;
 
@@ -9,7 +27,7 @@ function doLinks(e){
         
         for(var link in links){
             var url = links[link];
-            document.querySelector("textarea#output").value += "<a href=\"" + url + "\">" + url + "</a><br>";
+            document.querySelector("div#output").innerHTML += "<a href=\"" + url + "\">" + url + "</a><br>";
         }
     }catch(ex){}
 }
@@ -21,5 +39,5 @@ function init(){
 </head>
 <body>
 <textarea id="input"></textarea><br>
-<textarea id="output"></textarea>
+<div id="output"></div>
 </body>
