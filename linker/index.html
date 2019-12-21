@@ -31,8 +31,8 @@ function doLinks(e){
         document.querySelector("div#output").innerHTML = "";
         
         for(var link in links){
-            var url = links[link];
-            document.querySelector("div#output").innerHTML += "<a href=\"" + url + "\">" + url + "</a><br>";
+            var url = links[link].replace(/(https:?\/\/|\/)/g, "");
+            document.querySelector("div#output").innerHTML += "<a target=\"_blank\" href=\"//" + url + "\">" + url + "</a><br>";
         }
     }catch(ex){}
 }
