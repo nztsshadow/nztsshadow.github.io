@@ -3,7 +3,15 @@
 window.onload = init;
 
 function doLinks(e){
-    console.log(e.target);
+    try{
+        var links = e.target.value.split("\n");
+        document.querySelector("textarea#output").value = "";
+        
+        for(var link in links){
+            var url = links[link];
+            document.querySelector("textarea#output").value += "<a href=\"" + url + "\">" + url + "</a><br>";
+        }
+    }catch(ex){}
 }
 
 function init(){
