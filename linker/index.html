@@ -21,15 +21,15 @@
 window.onload = init;
 
 function doLinks(e){
-    //try{
+    try{
         var links = e.target.value.split("\n");
-        document.querySelector("textarea#output").value = "";
+        document.querySelector("div#output").innerHTML = "";
         
         for(var link in links){
             var url = links[link];
             document.querySelector("div#output").innerHTML += "<a href=\"" + url + "\">" + url + "</a><br>";
         }
-    //}catch(ex){}
+    }catch(ex){}
 }
 
 function init(){
