@@ -21,7 +21,7 @@
 window.onload = init;
 
 function doLinks(e){
-    try{
+    //try{
         var links = e.target.value.split("\n");
         document.querySelector("textarea#output").value = "";
         
@@ -29,7 +29,7 @@ function doLinks(e){
             var url = links[link];
             document.querySelector("div#output").innerHTML += "<a href=\"" + url + "\">" + url + "</a><br>";
         }
-    }catch(ex){}
+    //}catch(ex){}
 }
 
 function init(){
