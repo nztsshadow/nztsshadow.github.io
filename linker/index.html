@@ -34,17 +34,12 @@ function doCheck(e){
     
     if(checked.indexOf(link.getAttribute("check")) == -1){
         checked.push(link.innerText);
-        link.setAttribute("check", link.innerText);
         link.innerText = "✔️ " + link.innerText;
+        link.setAttribute("check", url);
         return true;
     }
     
     e.preventDefault();
-    
-    //Apply checkmark if already checked.
-    if((checked.indexOf(link.getAttribute("check")) > -1) && (link.innerText.indexOf("✔️") == -1))
-        link.innerText = "✔️ " + link.innerText;
-    
     return false;
 }
 
