@@ -29,8 +29,6 @@
 window.onload = init;
 function doCheck(e){
     console.log(e);
-    console.log(e.target);
-    return true;
 }
 
 function doLinks(e){
@@ -45,7 +43,7 @@ function doLinks(e){
             
             alink.setAttribute("target", "_BLANK");
             alink.setAttribute("href", "//" + url);
-            alink.addEventListener("mouseup", doCheck, false);
+            alink.setAttribute("onclick", "doCheck(this)");
             
             document.querySelector("div#output").appendChild(alink);
             document.querySelector("div#output").appendChild(nl);
