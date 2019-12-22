@@ -41,8 +41,8 @@ function doCheck(e){
     
     e.preventDefault();
     
-    //Already checked.
-    if(!link.getAttribute("check"))
+    //Apply checkmark to already checked.
+    if(checked.indexOf("✔️ " + link.innerText) == -1)
         link.innerText = "✔️ " + link.innerText;
     
     return false;
