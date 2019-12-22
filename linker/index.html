@@ -30,15 +30,16 @@ window.addEventListener("load", init, false);
 var checked = [];
 
 function doCheck(e){
-    e.preventDefault();
     var link = e.target;
     
-    if(checked.indexOf(link.innerText) == -1){
+    if(!link.getAttribute("check")){
         checked.push(link.innerText);
         link.innerText = "✔️ " + link.innerText;
         link.setAttribute("check", "true");
         return true;
     }
+    
+    e.preventDefault();
     
     //Already checked.
     if(!link.getAttribute("check"))
