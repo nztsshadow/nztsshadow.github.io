@@ -27,9 +27,22 @@
 </style>
 <script>
 window.addEventListener("load", init, false);
+var checked = [];
 
 function doCheck(e){
-    console.log(e);
+    e.preventDefault();
+    var link = e.target;
+    
+    if(checked.indexOf(link.innerText) == -1){
+        checked.push(link.innerText);
+        link.innerText = "✔️ " + link.innerText;
+        return true;
+    }
+    
+    //Already checked.
+    link.innerText = "✔️ " + link.innerText;
+    
+    return false;
 }
 
 function doLinks(e){
