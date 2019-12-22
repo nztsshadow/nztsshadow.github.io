@@ -26,7 +26,8 @@
     }
 </style>
 <script>
-window.onload = init;
+window.addEventListener("load", init, false);
+
 function doCheck(e){
     console.log(e);
 }
@@ -41,12 +42,18 @@ function doLinks(e){
             var alink = document.createElement("a");
             var nl = document.createElement("br");
             
+            console.log(url);
+            
             alink.setAttribute("target", "_BLANK");
             alink.setAttribute("href", "//" + url);
             alink.setAttribute("onclick", "doCheck(this)");
             
+            console.log("Appending..");
+            
             document.querySelector("div#output").appendChild(alink);
             document.querySelector("div#output").appendChild(nl);
+            
+            console.log("Appended!");
         }
     //}catch(ex){}
 }
