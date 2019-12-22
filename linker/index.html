@@ -22,7 +22,7 @@
         color: #EEE;
     }
     div#output a:visited{
-        color: #666;
+        color: #EEE;
     }
 </style>
 <script>
@@ -48,7 +48,7 @@ function doCheck(e){
 }
 
 function doLinks(e){
-    //try{
+    try{
         var links = e.target.value.split("\n");
         document.querySelector("div#output").innerHTML = "";
         
@@ -59,13 +59,13 @@ function doLinks(e){
             
             alink.setAttribute("target", "_BLANK");
             alink.setAttribute("href", "//" + url);
-            alink.addEventListener("mouseup", doCheck, false);
+            alink.addEventListener("click", doCheck, false);
             alink.innerText = url;
             
             document.querySelector("div#output").appendChild(alink);
             document.querySelector("div#output").appendChild(nl);
         }
-    //}catch(ex){}
+    }catch(ex){}
 }
 
 function init(){
