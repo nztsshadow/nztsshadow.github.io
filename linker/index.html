@@ -27,6 +27,11 @@
 </style>
 <script>
 window.onload = init;
+function doCheck(e){
+    e.preventDefault();
+    console.log(e.target);
+    return true;
+}
 
 function doLinks(e){
     try{
@@ -35,7 +40,15 @@ function doLinks(e){
         
         for(var link in links){
             var url = links[link].replace(/(https:?\/\/|\/)/g, "");
-            document.querySelector("div#output").innerHTML += "<a target=\"_blank\" href=\"//" + url + "\">" + url + "</a><br>";
+            var alink = document.createElement("a");
+            var nl = document.createElement("br");
+            
+            alink.setAttribute("target", "_BLANK");
+            alink.setAttribute("href", "//" + url);
+            alink.onclick = doCheck;
+            
+            document.querySelector("div#output").appendChild(alink);
+            document.querySelector("div#output").appendChild(nl);
         }
     }catch(ex){}
 }
