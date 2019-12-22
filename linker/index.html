@@ -36,11 +36,13 @@ function doCheck(e){
     if(checked.indexOf(link.innerText) == -1){
         checked.push(link.innerText);
         link.innerText = "✔️ " + link.innerText;
+        link.setAttribute("check", "true");
         return true;
     }
     
     //Already checked.
-    link.innerText = "✔️ " + link.innerText;
+    if(!link.getAttribute("check"))
+        link.innerText = "✔️ " + link.innerText;
     
     return false;
 }
