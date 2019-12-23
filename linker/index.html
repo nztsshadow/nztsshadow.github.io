@@ -29,8 +29,9 @@
 window.addEventListener("load", init, false);
 var checked = [];
 
-function doCheck(e){
-    var link = e.target;
+function doCheck(e, link){
+    if(e)
+        var link = e.target;
     
     if(checked.indexOf(link.getAttribute("link")) == -1){
         checked.push(link.getAttribute("link"));
@@ -40,8 +41,8 @@ function doCheck(e){
     
     if((checked.indexOf(link.getAttribute("link")) > -1) && (link.innerText.indexOf("✔️") == -1))
         link.innerText = "✔️ " + link.innerText;
-    
-    e.preventDefault();
+    if(e)
+        e.preventDefault();
     return false;
 }
 
@@ -60,6 +61,8 @@ function doLinks(e){
             alink.setAttribute("link", url);
             alink.addEventListener("click", doCheck, false);
             alink.innerText = url;
+            
+            doCheck(false, alink);
             
             document.querySelector("div#output").appendChild(alink);
             document.querySelector("div#output").appendChild(nl);
