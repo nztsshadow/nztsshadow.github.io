@@ -32,12 +32,15 @@ var checked = [];
 function doCheck(e){
     var link = e.target;
     
-    if(checked.indexOf(link.getAttribute("check")) == -1){
-        checked.push(link.innerText);
-        link.setAttribute("check", link.innerText);
+    if(checked.indexOf(link.getAttribute("link")) == -1){
+        checked.push(link.getAttribute("link"));
         link.innerText = "✔️ " + link.innerText;
+        link.setAttribute("check", url);
         return true;
     }
+    
+    if((checked.indexOf(link.getAttribute("link")) > -1) && (link.innerText.indexOf("✔️") == -1))
+        link.innerText = "✔️ " + link.innerText;
     
     e.preventDefault();
     return false;
@@ -49,12 +52,13 @@ function doLinks(e){
         document.querySelector("div#output").innerHTML = "";
         
         for(var link in links){
-            var url = links[link].replace(/(https:?\/\/|\/)/g, "");
+            var url = links[link].replace(/(.*\/\/)/g,"").split("/", 2)[0];
             var alink = document.createElement("a");
             var nl = document.createElement("br");
             
             alink.setAttribute("target", "_BLANK");
             alink.setAttribute("href", "//" + url);
+            alink.setAttribute("link", url);
             alink.addEventListener("click", doCheck, false);
             alink.innerText = url;
             
