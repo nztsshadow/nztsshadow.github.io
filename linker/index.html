@@ -33,7 +33,7 @@ function doCheck(e, link){
     if(e)
         var link = e.target;
     
-    if(checked.indexOf(link.getAttribute("link")) == -1){
+    if((checked.indexOf(link.getAttribute("link")) == -1) && e){
         checked.push(link.getAttribute("link"));
         link.innerText = "✔️ " + link.innerText;
         return true;
