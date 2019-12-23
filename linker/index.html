@@ -35,7 +35,6 @@ function doCheck(e){
     if(checked.indexOf(link.getAttribute("link")) == -1){
         checked.push(link.getAttribute("link"));
         link.innerText = "✔️ " + link.innerText;
-        link.setAttribute("check", url);
         return true;
     }
     
