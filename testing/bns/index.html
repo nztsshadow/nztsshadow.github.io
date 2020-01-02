@@ -1,0 +1,221 @@
+<html>
+<head>
+    <title>BNS</title>
+
+    <style>
+
+        .page 
+        {
+            margin-left: auto;
+            margin-right: auto;
+            width: 1000px;
+            padding-bottom: 100px;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="page">
+
+    <div>Mode: <input id="mode" style="width:50px" type="text" /> <input value="Set" type="button" onclick="SetMode();" /></div>
+
+    <div id="out"></div>
+    <br /><br />
+    <table>
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Desc</td>
+                <td>max_player</td>
+                <td>host_clvl</td>
+                <td>clvl_range</td>
+                <td>uptime</td>
+            </tr>
+        </thead>
+
+        <tbody id="gtbl">
+
+        </tbody>
+    </table>
+
+
+</div>
+
+
+
+
+
+    <script>
+
+        // BSP messages
+const BSP_GAME_STATE  = 0x10;
+const BSP_GAME_OPEN   = 0x11;
+const BSP_GAME_CLOSE  = 0x12;
+const BSP_GAME_UPDATE = 0x13;
+const BSP_GAME_PADD   = 0x14;
+const BSP_GAME_PREM   = 0x15;
+
+
+
+        ws = new WebSocket("ws://203.206.5.126:1504");
+        ws.binaryType = "arraybuffer";
+
+
+        function SetMode()
+        {
+            try{
+              var val = Number.parseInt(GetElement("mode").value);
+              var ar = new Uint8Array(1);
+
+              ar[0] = val;
+
+              GetElement("gtbl").innerHTML = "";
+
+              ws.send(ar);
+            } catch(e){
+              alert(e);
+            }
+        }
+
+        function CheckGameExists(game_id)
+        {
+            var ele;
+
+            if(!GetElement(game_id))
+            {
+                var row = CreateElement("tr", game_id);
+                
+                row.appendChild(CreateElement("td", game_id+"_"+ "name"));
+                row.appendChild(CreateElement("td", game_id+"_"+ "desc"));
+                row.appendChild(CreateElement("td", game_id+"_"+ "max_players"));
+                row.appendChild(CreateElement("td", game_id+"_"+ "host_clvl"));
+                row.appendChild(CreateElement("td", game_id+"_"+ "clvl_range"));
+                row.appendChild(CreateElement("td", game_id+"_"+ "uptime"));
+
+                GetElement("gtbl").appendChild(row);
+            }
+        }
+
+        function SetGameProp(game_id, prop, value)
+        {
+            GetElement(game_id+"_"+ prop).innerText = value;
+        }
+
+
+        function BSP_ProcessGameDesc(game_id, dv)
+        {
+            var off = 0;
+            var tmp;
+            var game_name = read_str(dv, off+1, (tmp=read_uib(dv, off))); off += 1+tmp;
+            var game_desc = read_str(dv, off+1, (tmp=read_uib(dv, off))); off += 1+tmp;
+
+
+            dbg("game_desc: ");
+            dbg("  game_name: " + game_name);
+            dbg("  game_desc: " + game_desc);
+
+            SetGameProp(game_id, "name", game_name);
+            SetGameProp(game_id, "desc", game_desc);
+
+            return off;
+        }
+
+        function BSP_ProcessGameDescEx(game_id, dv)
+        {
+            var off = 0;
+            var max_players = read_uib(dv, off); off += 1;
+            var host_clvl = read_uib(dv, off); off += 1;
+            var clvl_range = read_uib(dv, off); off += 1;
+            var dt_uptime = new Date(Date.now() - (read_uib(dv, off) * 1000)); off += 1;
+
+            dbg("game_desc_ex: ");
+            dbg("  max_players: " + max_players);
+            dbg("  host_clvl:   " + host_clvl);
+            dbg("  clvl_range:  " + clvl_range);
+            dbg("  dt_uptime:   " + dt_uptime);
+
+            SetGameProp(game_id, "max_players", max_players);
+            SetGameProp(game_id, "host_clvl", host_clvl);
+            SetGameProp(game_id, "clvl_range", clvl_range);
+            SetGameProp(game_id, "uptime", dt_uptime.toTimeString());
+
+            return off;
+        }
+
+
+        ws.onmessage = function (evt)
+        {
+            var dv = new DataView(evt.data);
+            var off = 0;
+
+            while(off < dv.byteLength)
+            {
+                var mid = read_uib(dv, off); off += 1;
+
+                dbg("Received message: " + mid);
+
+
+                if(mid == BSP_GAME_STATE)
+                {
+                    var game_id = read_uiw(dv, off); off += 2;
+
+                    CheckGameExists(game_id);
+                    off += BSP_ProcessGameDescEx(game_id, new DataView(evt.data, off));
+                    off += BSP_ProcessGameDesc(game_id, new DataView(evt.data, off));
+                }
+
+                else if(mid == BSP_GAME_OPEN)
+                {
+                    var game_id = read_uiw(dv, off); off += 2;
+
+                    CheckGameExists(game_id);
+                    off += BSP_ProcessGameDesc(game_id, new DataView(evt.data, off));
+                }
+
+                else if(mid == BSP_GAME_UPDATE)
+                {
+                    var game_id = read_uiw(dv, off); off += 2;
+
+                    CheckGameExists(game_id);
+                    off += BSP_ProcessGameDescEx(game_id, new DataView(evt.data, off));
+                }
+
+                else if(mid == BSP_GAME_CLOSE)
+                {
+                    var game_id = read_uiw(dv, off); off += 2;
+
+                    dbg("game close: " + game_id);
+                    GetElement(game_id).remove();
+                }
+
+                else
+                    dbg("Received unknown BSP message: " + mid);
+            }
+        }
+
+
+        function read_uib(dv, off) { return dv.getUint8(off, true); }
+        function read_uiw(dv, off) { return dv.getUint16(off, true); }
+        function read_uid(dv, off) { return dv.getUint32(off, true); }
+        function read_str(dv, off, len) { return String.fromCharCode.apply(null, new Uint8Array(dv.buffer, dv.byteOffset+off, len)); }
+
+
+        function CreateElement(tag, id)
+        {
+            var ele = document.createElement(tag);
+            ele.id = id;
+            return ele;
+        }
+
+        function GetElement(id) { return document.getElementById(id); } 
+
+        function dbg(str)
+        {
+
+            console.log(str) 
+        }
+        
+    </script>
+</body>
+</html>
