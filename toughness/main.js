@@ -9,6 +9,12 @@ Array.prototype.suffix = function(suf){
     return a;
 }
 
+Array.prototype.doFormat = function(format){
+    switch(format){
+        case "regen": return monRegenFormat(this); break;
+    }
+}
+
 Array.prototype.isInf = function(){
     if(this[0] >= 0 && this[1] >= 0 && this[0] != Infinity && this[1] != Infinity)
         return this;
@@ -89,6 +95,14 @@ function handleTxt(fs){
     });
 }
 
+function monRegenFormat(arr){
+    var a = [];
+    for(var k of arr){
+        a.push(k.toFixed(2) + " /s (" + (k / 25).toFixed(2) + " /f)");
+    }
+    return a.isInf();
+}
+
 function setCalcs(){
     loadCalcs();
 }
@@ -129,7 +143,7 @@ function doCalcs(){
     var realMaxHP = (maxHP * monHP) / 100;
     
     //Calculate Monster Regen
-    var monRegenScale = [(((monRegen * realMinHP) / 4096) * 25).toFixed(2), (((monRegen * realMaxHP) / 4096) * 25).toFixed(2)];
+    var monRegenScale = [(((monRegen * realMinHP) / 4096) * 25), (((monRegen * realMaxHP) / 4096) * 25)];
     
     //Calculate To Hit
     var monDef = (monsDef * monlDef) / 100;
@@ -189,7 +203,7 @@ function doCalcs(){
     document.getElementById("poisro").innerText = poisTough.isInf().join(" - ");
     
     //Set Monster Regen Range
-    document.getElementById("monregeno").innerText = monRegenScale.isInf().suffix(" /s").join(" ~ ");
+    document.getElementById("monregeno").innerText = monRegenScale.doFormat("regen").join(" ~ ");
     
     //Set Chance to be Hit A1/A2
     document.getElementById("pdefc").innerText = chanceToBeHit.suffix("%").join(" | ");
