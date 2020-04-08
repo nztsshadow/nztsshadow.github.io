@@ -203,7 +203,7 @@ function doCalcs(){
     document.getElementById("poisro").innerText = poisTough.isInf().join(" - ");
     
     //Set Monster Regen Range
-    document.getElementById("monregeno").innerText = monRegenScale.doFormat("regen").join(" ~ ");
+    document.getElementById("monregeno").innerHTML = monRegenScale.doFormat("regen").join(" ~ ");
     
     //Set Chance to be Hit A1/A2
     document.getElementById("pdefc").innerText = chanceToBeHit.suffix("%").join(" | ");
