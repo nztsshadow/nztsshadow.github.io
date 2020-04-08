@@ -339,7 +339,7 @@ div#calc table#readCalcs tr:nth-child(1) th:nth-child(1){
 }
 
 div#calc table#readCalcs tr:nth-child(2) td:nth-child(1){
-    background: url(GFX/healthheart.png) 90% 120% / 48px no-repeat, url(GFX/btexture2.png), linear-gradient(to bottom,#a50000 0%,#280000 100%);
+    background: url(GFX/healthheart.png) 90% 200% / 48px no-repeat, url(GFX/btexture2.png), linear-gradient(to bottom,#a50000 0%,#280000 100%);
 }
 
 div#calc table#readCalcs tr:nth-child(2) td:nth-child(1) span{
@@ -353,7 +353,7 @@ div#calc table#readCalcs tr:nth-child(1) th:nth-child(2){
 }
 
 div#calc table#readCalcs tr:nth-child(2) td:nth-child(2){
-    background: url(GFX/plusheartregen.png) 90% 120% / 48px no-repeat, url(GFX/btexture2.png), linear-gradient(to bottom, #00FA9A 0%,#004b2e 100%);
+    background: url(GFX/plusheartregen.png) 90% 200% / 48px no-repeat, url(GFX/btexture2.png), linear-gradient(to bottom, #00FA9A 0%,#004b2e 100%);
 }
 
 div#calc table#readCalcs tr:nth-child(2) td:nth-child(2) span{
@@ -362,29 +362,29 @@ div#calc table#readCalcs tr:nth-child(2) td:nth-child(2) span{
 
 /* A1 Damage */
 div#calc table#readCalcs tr:nth-child(1) th:nth-child(3){
-    background: url(GFX/a1dmg.png) 90% -20% / 48px no-repeat, linear-gradient(to left, #A59263 0%,#524931 100%);
+    background: url(GFX/a1dmg.png) 90% -20% / 56px no-repeat, linear-gradient(to left, #A59263 0%,#524931 100%);
 }
 
 div#calc table#readCalcs tr:nth-child(2) td:nth-child(3){
-    background: url(GFX/a1dmg.png) 90% 120% / 48px no-repeat, url(GFX/btexture2.png), linear-gradient(to left, #A59263 0%,#524931 100%);
+    background: url(GFX/a1dmg.png) 90% 120% / 56px no-repeat, url(GFX/btexture2.png), linear-gradient(to left, #A59263 0%,#524931 100%);
 }
 
 /* A2 Damage */
 div#calc table#readCalcs tr:nth-child(1) th:nth-child(4){
-    background: url(GFX/a2dmg.png) 90% -10% / 54px no-repeat, linear-gradient(to right, #A59263 0%,#524931 100%);
+    background: url(GFX/a2dmg.png) 90% -10% / 62px no-repeat, linear-gradient(to right, #A59263 0%,#524931 100%);
 }
 
 div#calc table#readCalcs tr:nth-child(2) td:nth-child(4){
-    background: url(GFX/a2dmg.png) 90% 100% / 54px no-repeat, url(GFX/btexture2.png), linear-gradient(to right, #A59263 0%,#524931 100%);
+    background: url(GFX/a2dmg.png) 90% 100% / 62px no-repeat, url(GFX/btexture2.png), linear-gradient(to right, #A59263 0%,#524931 100%);
 }
 
 /* S1 Damage */
 div#calc table#readCalcs tr:nth-child(1) th:nth-child(5){
-    background: url(GFX/s1dmg.png) 90% -60% / 40px no-repeat, linear-gradient(to top, #A59263 0%,#524931 100%);
+    background: url(GFX/s1dmg.png) 90% -60% / 46px no-repeat, linear-gradient(to top, #A59263 0%,#524931 100%);
 }
 
 div#calc table#readCalcs tr:nth-child(2) td:nth-child(5){
-    background: url(GFX/s1dmg.png) 90% 160% / 40px no-repeat, url(GFX/btexture2.png), linear-gradient(to top, #A59263 0%,#524931 100%);
+    background: url(GFX/s1dmg.png) 90% 160% / 46px no-repeat, url(GFX/btexture2.png), linear-gradient(to top, #A59263 0%,#524931 100%);
 }
 
 /* Global Damage Color */
