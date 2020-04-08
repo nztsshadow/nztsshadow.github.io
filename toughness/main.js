@@ -98,7 +98,7 @@ function handleTxt(fs){
 function monRegenFormat(arr){
     var a = [];
     for(var k of arr){
-        a.push(k.toFixed(2) + " /s<sub>" + (k / 25).toFixed(2) + " /F</sub>");
+        a.push(k.toFixed(2) + "<sup>s</sup> <sub>" + (k / 25).toFixed(2) + "f</sub>");
     }
     return a;
 }
