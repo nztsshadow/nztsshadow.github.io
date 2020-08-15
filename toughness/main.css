@@ -484,6 +484,10 @@ div#calc table#readCalcs tr:nth-child(4) td:nth-child(6){
     color: #358842;
 }
 
+div#calc table#readCalcs tr:nth-child(4) sub{
+    font-size: 12px
+}
+
 div#calc td input{
     border: none;
     background: none;
