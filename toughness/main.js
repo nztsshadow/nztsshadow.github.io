@@ -2,6 +2,12 @@ window.onload = initialize;
 var monLevels;
 var monStats;
 
+HTMLElement.prototype.setAttributes = function(){
+    if((arguments.length > 0) && (arguments.length % 2 == 0))
+        for(var i = 0; arguments.length > i; i+=2)
+            this.setAttribute(arguments[i], arguments[i+1]);
+}
+
 Array.prototype.suffix = function(suf){
     var a = [];
     for(var k of this)
@@ -195,12 +201,27 @@ function doCalcs(){
     document.getElementById("defc").innerText = chanceToHit;
     
     //Set Calculated Toughness'
-    document.getElementById("physro").innerText = physTough.isInf().join(" - ");
-    document.getElementById("magiro").innerText = magiTough.isInf().join(" - ");
-    document.getElementById("firero").innerText = fireTough.isInf().join(" - ");
-    document.getElementById("litero").innerText = liteTough.isInf().join(" - ");
-    document.getElementById("coldro").innerText = coldTough.isInf().join(" - ");
-    document.getElementById("poisro").innerText = poisTough.isInf().join(" - ");
+    var calcPhysTough = physTough.isInf();
+    var calcMagiTough = magiTough.isInf();
+    var calcFireTough = fireTough.isInf();
+    var calcLiteTough = liteTough.isInf();
+    var calcColdTough = coldTough.isInf();
+    var calcPoisTough = poisTough.isInf();
+    
+    document.getElementById("physro").innerText = calcPhysTough.join(" - ");
+    document.getElementById("magiro").innerText = calcMagiTough.join(" - ");
+    document.getElementById("firero").innerText = calcFireTough.join(" - ");
+    document.getElementById("litero").innerText = calcLiteTough.join(" - ");
+    document.getElementById("coldro").innerText = calcColdTough.join(" - ");
+    document.getElementById("poisro").innerText = calcPoisTough.join(" - ");
+    
+    //Quantify Toughness
+    document.getElementById("physro").setAttributes("range-min", calcPhysTough[0], "range-max", calcPhysTough[1]);
+    document.getElementById("magiro").setAttributes("range-min", calcMagiTough[0], "range-max", calcMagiTough[1]);
+    document.getElementById("firero").setAttributes("range-min", calcFireTough[0], "range-max", calcFireTough[1]);
+    document.getElementById("litero").setAttributes("range-min", calcLiteTough[0], "range-max", calcLiteTough[1]);
+    document.getElementById("coldro").setAttributes("range-min", calcColdTough[0], "range-max", calcColdTough[1]);
+    document.getElementById("poisro").setAttributes("range-min", calcPoisTough[0], "range-max", calcPoisTough[1]);
     
     //Set Monster Regen Range
     document.getElementById("monregeno").innerHTML = monRegenScale.doFormat("regen").join(" ~ ");
@@ -304,6 +325,46 @@ function loadCalcValues(){
     loadCalcs();
 }
 
+function handleQuant(e){
+    var quant = e.target;
+    var quantifier = parseInt(quant.value) / 100;
+    
+    var ranges = {
+        phys: [
+            parseInt(document.getElementById("physro").getAttribute("range-min")), 
+            parseInt(document.getElementById("physro").getAttribute("range-max"))
+        ],
+        magi: [
+            parseInt(document.getElementById("magiro").getAttribute("range-min")), 
+            parseInt(document.getElementById("magiro").getAttribute("range-max"))
+        ],
+        fire: [
+            parseInt(document.getElementById("firero").getAttribute("range-min")), 
+            parseInt(document.getElementById("firero").getAttribute("range-max"))
+        ],
+        lite: [
+            parseInt(document.getElementById("litero").getAttribute("range-min")), 
+            parseInt(document.getElementById("litero").getAttribute("range-max"))
+        ],
+        cold: [
+            parseInt(document.getElementById("coldro").getAttribute("range-min")), 
+            parseInt(document.getElementById("coldro").getAttribute("range-max"))
+        ],
+        pois: [
+            parseInt(document.getElementById("poisro").getAttribute("range-min")), 
+            parseInt(document.getElementById("poisro").getAttribute("range-max"))
+        ]
+    };
+    
+    document.getElementById("physro").innerText = [ranges.phys[0] * quantifier, ranges.phys[1] * quantifier].join(" - ");
+    document.getElementById("magiro").innerText = [ranges.magi[0] * quantifier, ranges.magi[1] * quantifier].join(" - ");
+    document.getElementById("firero").innerText = [ranges.fire[0] * quantifier, ranges.fire[1] * quantifier].join(" - ");
+    document.getElementById("litero").innerText = [ranges.lite[0] * quantifier, ranges.lite[1] * quantifier].join(" - ");
+    document.getElementById("coldro").innerText = [ranges.cold[0] * quantifier, ranges.cold[1] * quantifier].join(" - ");
+    document.getElementById("poisro").innerText = [ranges.pois[0] * quantifier, ranges.pois[1] * quantifier].join(" - ");
+    
+}
+
 function initialize(){
     document.getElementById("monstatsf").addEventListener("change", handleTxt, false);
     document.getElementById("monlvlf").addEventListener("change", handleTxt, false);
@@ -311,6 +372,7 @@ function initialize(){
     document.getElementById("mon").addEventListener("change", setCalcs, false);
     document.getElementById("diff").addEventListener("change", setCalcs, false);
     document.getElementById("plvl").addEventListener("keyup", setCalcs, false);
+    document.getElementById("toughquant").addEventListener("keyup", handleQuant, false);
     
     //Listen for editable calc changes.
     for(var k of calcs){
