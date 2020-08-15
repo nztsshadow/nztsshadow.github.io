@@ -356,12 +356,12 @@ function handleQuant(e){
         ]
     };
     
-    document.getElementById("physro").innerText = [ranges.phys[0] * quantifier, ranges.phys[1] * quantifier].join(" - ");
-    document.getElementById("magiro").innerText = [ranges.magi[0] * quantifier, ranges.magi[1] * quantifier].join(" - ");
-    document.getElementById("firero").innerText = [ranges.fire[0] * quantifier, ranges.fire[1] * quantifier].join(" - ");
-    document.getElementById("litero").innerText = [ranges.lite[0] * quantifier, ranges.lite[1] * quantifier].join(" - ");
-    document.getElementById("coldro").innerText = [ranges.cold[0] * quantifier, ranges.cold[1] * quantifier].join(" - ");
-    document.getElementById("poisro").innerText = [ranges.pois[0] * quantifier, ranges.pois[1] * quantifier].join(" - ");
+    document.getElementById("physro").innerText = [(ranges.phys[0] * quantifier).toFixed(2), (ranges.phys[1] * quantifier).toFixed(2)].join(" - ");
+    document.getElementById("magiro").innerText = [(ranges.magi[0] * quantifier).toFixed(2), (ranges.magi[1] * quantifier).toFixed(2)].join(" - ");
+    document.getElementById("firero").innerText = [(ranges.fire[0] * quantifier).toFixed(2), (ranges.fire[1] * quantifier).toFixed(2)].join(" - ");
+    document.getElementById("litero").innerText = [(ranges.lite[0] * quantifier).toFixed(2), (ranges.lite[1] * quantifier).toFixed(2)].join(" - ");
+    document.getElementById("coldro").innerText = [(ranges.cold[0] * quantifier).toFixed(2), (ranges.cold[1] * quantifier).toFixed(2)].join(" - ");
+    document.getElementById("poisro").innerText = [(ranges.pois[0] * quantifier).toFixed(2), (ranges.pois[1] * quantifier).toFixed(2)].join(" - ");
     
 }
 
