@@ -387,6 +387,20 @@ div#calc table#readCalcs tr:nth-child(2) td:nth-child(5){
     background: url(GFX/s1dmg.png) 90% 160% / 46px no-repeat, url(GFX/btexture2.png), linear-gradient(to top, #A59263 0%,#524931 100%);
 }
 
+/* Toughness % */
+div#calc table#readCalcs tr:nth-child(1) th:nth-child(6){
+    background: linear-gradient(to right, #712f2c 0%, #8A2BE2 20%, #e25822 40%, #f0fb3e 60%, #5785ce 80%, #358842 100%);
+}
+
+div#calc table#readCalcs tr:nth-child(2) td:nth-child(6){
+    background: url(GFX/btexture2.png), linear-gradient(to right, #712f2c 0%, #8A2BE2 20%, #e25822 40%, #f0fb3e 60%, #5785ce 80%, #358842 100%);
+}
+
+div#calc table#readCalcs tr:nth-child(2) td:nth-child(6) input{
+    color: #e5e4e2;
+    text-shadow: 2px 1px 0 rgba(0, 0, 0, 0.375);
+}
+
 /* Global Damage Color */
 div#calc table#readCalcs tr:nth-child(2) td:nth-child(n+3) span{
     color: #A59263;
