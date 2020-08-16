@@ -96,7 +96,7 @@ function handleTxt(fs){
             document.getElementById("upload").style.display = "none";
             document.getElementById("calc").style.display = "inline-block";
             
-            loadCalcValues();
+            loadCalcValues(true, true);
         }
     });
 }
@@ -111,6 +111,18 @@ function monRegenFormat(arr){
 
 function setCalcs(){
     loadCalcs();
+}
+
+function setMonCalcs(){
+    loadCalcs(true);
+}
+
+function setSort(){
+    var mode = parseInt(this.value);
+    switch(mode){
+        case 0: loadCalcValues(true, false); break;
+        case 1: loadCalcValues(false, false); break;
+    }
 }
 
 function doCalcs(){
@@ -208,12 +220,12 @@ function doCalcs(){
     var calcColdTough = coldTough.isInf();
     var calcPoisTough = poisTough.isInf();
     
-    document.getElementById("physro").innerText = calcPhysTough.join(" - ");
-    document.getElementById("magiro").innerText = calcMagiTough.join(" - ");
-    document.getElementById("firero").innerText = calcFireTough.join(" - ");
-    document.getElementById("litero").innerText = calcLiteTough.join(" - ");
-    document.getElementById("coldro").innerText = calcColdTough.join(" - ");
-    document.getElementById("poisro").innerText = calcPoisTough.join(" - ");
+    document.getElementById("physrocalc").innerText = calcPhysTough.join(" - ");
+    document.getElementById("magirocalc").innerText = calcMagiTough.join(" - ");
+    document.getElementById("firerocalc").innerText = calcFireTough.join(" - ");
+    document.getElementById("literocalc").innerText = calcLiteTough.join(" - ");
+    document.getElementById("coldrocalc").innerText = calcColdTough.join(" - ");
+    document.getElementById("poisrocalc").innerText = calcPoisTough.join(" - ");
     
     //Quantify Toughness
     document.getElementById("physro").setAttributes("range-min", calcPhysTough[0], "range-max", calcPhysTough[1]);
@@ -235,7 +247,7 @@ function doCalcs(){
     document.getElementById("mons1dmgo").innerText = S1Dmg.join(" ~ ");
 }
 
-function loadCalcs(clear){
+function loadCalcs(useMon){
     
     //Elements
     var mDiff = document.getElementById("diff");
@@ -246,6 +258,13 @@ function loadCalcs(clear){
     var sDiff = mDiff.value;
     var sMon = mMon.value;
     var sLvl = mLvl.value;
+    
+    //Set MonStats monlvl on monster load
+    if(useMon){
+        monLevelKey = sDiff == 1 ? "Level(N)" : sDiff == 2 ? "Level(H)" : "Level";
+        sLvl = parseInt(monStats[sMon][monLevelKey] == "" ? mLvl.value : monStats[sMon][monLevelKey]);
+        mLvl.value = sLvl;
+    }
     
     //Fill appropriate values.
     for(var k of calcs){
@@ -293,7 +312,7 @@ function loadCalcs(clear){
     doCalcs();
 }
 
-function loadCalcValues(){
+function loadCalcValues(sort, update){
     //Elements
     var mLvl = document.getElementById("mlvl");
     var mMon = document.getElementById("mon");
@@ -304,7 +323,8 @@ function loadCalcValues(){
     
     //Sort monsters in alphabetical order.
     var monStatKeys = Object.keys(monStats);
-    monStatKeys.sort();
+    if(sort)
+        monStatKeys.sort();
     
     //Load keys for MonLvls
     for(var k of Object.keys(monLevels)){
@@ -322,7 +342,9 @@ function loadCalcValues(){
         mMon.appendChild(nMon);
     }
     
-    loadCalcs();
+    // Load Calcs after keys loaded.
+    if(update)
+        loadCalcs();
 }
 
 function handleQuant(e){
@@ -356,21 +378,29 @@ function handleQuant(e){
         ]
     };
     
-    document.getElementById("physro").innerHTML = `${ranges.phys.join(" - ")}<sub>${[Math.floor(ranges.phys[0] * quantifier), Math.floor(ranges.phys[1] * quantifier)].join(" - ")}</sub>`;
-    document.getElementById("magiro").innerHTML = `${ranges.magi.join(" - ")}<sub>${[Math.floor(ranges.magi[0] * quantifier), Math.floor(ranges.magi[1] * quantifier)].join(" - ")}</sub>`;
-    document.getElementById("firero").innerHTML = `${ranges.fire.join(" - ")}<sub>${[Math.floor(ranges.fire[0] * quantifier), Math.floor(ranges.fire[1] * quantifier)].join(" - ")}</sub>`;
-    document.getElementById("litero").innerHTML = `${ranges.lite.join(" - ")}<sub>${[Math.floor(ranges.lite[0] * quantifier), Math.floor(ranges.lite[1] * quantifier)].join(" - ")}</sub>`;
-    document.getElementById("coldro").innerHTML = `${ranges.cold.join(" - ")}<sub>${[Math.floor(ranges.cold[0] * quantifier), Math.floor(ranges.cold[1] * quantifier)].join(" - ")}</sub>`;
-    document.getElementById("poisro").innerHTML = `${ranges.pois.join(" - ")}<sub>${[Math.floor(ranges.pois[0] * quantifier), Math.floor(ranges.pois[1] * quantifier)].join(" - ")}</sub>`;
+    document.getElementById("physroq").innerText = [Math.floor(ranges.phys[0] * quantifier), Math.floor(ranges.phys[1] * quantifier)].isInf().join(" - ");
+    document.getElementById("magiroq").innerText = [Math.floor(ranges.magi[0] * quantifier), Math.floor(ranges.magi[1] * quantifier)].isInf().join(" - ");
+    document.getElementById("fireroq").innerText = [Math.floor(ranges.fire[0] * quantifier), Math.floor(ranges.fire[1] * quantifier)].isInf().join(" - ");
+    document.getElementById("literoq").innerText = [Math.floor(ranges.lite[0] * quantifier), Math.floor(ranges.lite[1] * quantifier)].isInf().join(" - ");
+    document.getElementById("coldroq").innerText = [Math.floor(ranges.cold[0] * quantifier), Math.floor(ranges.cold[1] * quantifier)].isInf().join(" - ");
+    document.getElementById("poisroq").innerText = [Math.floor(ranges.pois[0] * quantifier), Math.floor(ranges.pois[1] * quantifier)].isInf().join(" - ");
+    
+    if(isNaN(ranges.phys[0])) document.getElementById("physroq").innerText = "Immune";
+    if(isNaN(ranges.magi[0])) document.getElementById("magiroq").innerText = "Immune";
+    if(isNaN(ranges.fire[0])) document.getElementById("fireroq").innerText = "Immune";
+    if(isNaN(ranges.lite[0])) document.getElementById("literoq").innerText = "Immune";
+    if(isNaN(ranges.cold[0])) document.getElementById("coldroq").innerText = "Immune";
+    if(isNaN(ranges.pois[0])) document.getElementById("poisroq").innerText = "Immune";
     
 }
 
 function initialize(){
     document.getElementById("monstatsf").addEventListener("change", handleTxt, false);
     document.getElementById("monlvlf").addEventListener("change", handleTxt, false);
-    document.getElementById("mlvl").addEventListener("change", setCalcs, false);
-    document.getElementById("mon").addEventListener("change", setCalcs, false);
-    document.getElementById("diff").addEventListener("change", setCalcs, false);
+    document.getElementById("mlvl").addEventListener("mouseup", setCalcs, false);
+    document.getElementById("mon").addEventListener("change", setMonCalcs, false);
+    document.getElementById("diff").addEventListener("change", setMonCalcs, false);
+    document.getElementById("sortmode").addEventListener("change", setSort, false);
     document.getElementById("plvl").addEventListener("keyup", setCalcs, false);
     document.getElementById("toughquant").addEventListener("keyup", handleQuant, false);
     
