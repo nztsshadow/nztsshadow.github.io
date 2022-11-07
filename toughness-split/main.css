@@ -524,6 +524,6 @@ table#readCalcs td{
     font: bold italic 18px Arial;
 }
 
-span#defc, span#blockc, span#pdefc{
+span[id^="defc"], span#blockc, span[id^="pdefc"]{
     font: italic bold 24px Arial;
 }
