@@ -1,0 +1,98 @@
+body{
+    background: #002147;
+    padding: 24px;
+}
+
+body *{
+    font-variant: small-caps !important;
+    font-family: Arial;
+}
+
+div#upload{
+    background: rgba(51, 51, 51, 0.5);
+    border: 1px solid;
+    position: relative;
+    margin: 0;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: inset 0 0 3px #000;
+    display: inline-block;
+}
+
+div#editable{
+    background: rgba(51, 51, 51, 0.7);
+    border: 1px solid;
+    position: relative;
+    margin: 0;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: inset 0 0 3px #000;
+    display: none;
+}
+
+.il_title{
+    font: bold 24px Arial;
+    display: inline-block;
+}
+
+.il_title_b{
+    font: bold 32px Arial;
+}
+
+.ltheme{
+    color: beige;
+}
+
+.ctext{
+    font: bold 24px Arial;
+}
+
+.btext{
+    font: oblique 28px Arial;
+}
+
+.centered{
+    text-align: center;
+}
+
+div#editable select{
+    font: 20px Arial;
+}
+
+div#editable input{
+    font: 20px Arial;
+    width: 64px;
+}
+
+div#editable hr{
+    border: 1px solid beige;
+    margin: 16px 0;
+}
+
+span.calc{
+    color: orange;
+}
+
+.dColorPhys{
+    color: #9B734F;
+}
+
+.dColorFire{
+    color: orangered;
+}
+
+.dColorLtng{
+    color: goldenrod;
+}
+
+.dColorMag{
+    color: mediumpurple;
+}
+
+.dColorCold{
+    color: skyblue;
+}
+
+.dColorPois{
+    color: greenyellow;
+}

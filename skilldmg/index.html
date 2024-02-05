@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<!-- Base Skill Damage Calculator v1.0 by Shadow (Thank you Nizari for his help.) -->
+
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="txtlib.js"></script>
+    <script src="main.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <title>Base Skill Damage Calculator v1.0 by Shadow</title>
+</head>
+<body>
+    <div id="upload">
+        <span class="il_title ltheme">Please upload the appropriate requested files below.</span><br><br>
+        <span class="ctext ltheme">Skills.txt&nbsp;:&nbsp;</span><input class="ltheme" type="file" id="skillsf" accept=".txt " placeholder="Skills.txt"/><br>
+    </div>
+    <div id="editable">
+        <hr><div class="il_title_b centered ltheme">Editables</div><hr><br>
+        <span class="ctext ltheme">Skill: </span>
+        <select name="skills" id="skills">
+            <option value="0">Attack</option>
+        </select><br>
+        <span class="ctext ltheme">Damage Type: </span>
+        <select name="dtype" id="dtypes">
+            <option value="phys">Physical</option>
+            <option value="fire">Fire</option>
+            <option value="ltng">Lightning</option>
+            <option value="mag">Magic</option>
+            <option value="cold">Cold</option>
+            <option value="pois">Poison</option>
+            <option value="life">Life</option>
+            <option value="mana">Mana</option>
+            <option value="stam">Stamina</option>
+            <option value="stun">Stun</option>
+            <option value="rand">Random Element</option>
+            <option value="burn">Burning</option>
+            <option value="frze">Freeze</option>
+        </select><br>
+        <span class="ctext ltheme">Skill Level: </span><input id="sklvl" type="value" min="1" max="127" placeholder="1" value="1"/><br>
+        <span class="ctext ltheme">Minimum Damage: </span><input id="mind" type="value" placeholder="0"/>
+        <span class="ctext ltheme">L1: </span><input id="midlv1" type="value" placeholder="0"/>
+        <span class="ctext ltheme">L2: </span><input id="midlv2" type="value" placeholder="0"/>
+        <span class="ctext ltheme">L3: </span><input id="midlv3" type="value" placeholder="0"/>
+        <span class="ctext ltheme">L4: </span><input id="midlv4" type="value" placeholder="0"/>
+        <span class="ctext ltheme">L5: </span><input id="midlv5" type="value" placeholder="0"/><br>
+        <span class="ctext ltheme">Maximum Damage: </span><input id="maxd" type="value" placeholder="0"/>
+        <span class="ctext ltheme">L1: </span><input id="madlv1" type="value" placeholder="0"/>
+        <span class="ctext ltheme">L2: </span><input id="madlv2" type="value" placeholder="0"/>
+        <span class="ctext ltheme">L3: </span><input id="madlv3" type="value" placeholder="0"/>
+        <span class="ctext ltheme">L4: </span><input id="madlv4" type="value" placeholder="0"/>
+        <span class="ctext ltheme">L5: </span><input id="madlv5" type="value" placeholder="0"/><br>
+        <span class="ctext ltheme">Damage Length: </span><input id="dlen" type="value" placeholder="0"/>
+        <span class="ctext ltheme">L1: </span><input id="lenlv1" type="value" placeholder="0"/>
+        <span class="ctext ltheme">L2: </span><input id="lenlv2" type="value" placeholder="0"/>
+        <span class="ctext ltheme">L3: </span><input id="lenlv3" type="value" placeholder="0"/><br>
+        <span class="ctext ltheme">Synergy Bonus: </span><input id="syndmg" min="0" type="value" placeholder="1" value="0"/><br>
+        <br><br><hr>
+        <div class="il_title_b centered ltheme">Calculations</div><hr><br>
+        <span class="ctext ltheme">Total Damage: </span><span id="totaldmg" class="ctext calc">0 ~ 0</span><br>
+        <span class="ctext ltheme">Damage Length: </span><span id="totaldmglen" class="ctext calc">0</span><br>
+    </div>
+</body>
+</html>
